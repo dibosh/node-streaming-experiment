@@ -11,6 +11,8 @@ var exphbs  = require('express-handlebars');
 
 var routes = require('./routes/index');
 
+var streaming = require('./streaming');
+
 var app = express();
 
 var env = process.env.NODE_ENV || 'development';
@@ -38,10 +40,9 @@ function getSongPath(id) {
   return path.join(__dirname, 'public/songs/'+ id +'.mp3');
 }
 
-app.get('/song/:id', function (req, res) {
+app.get('/songs', function (req, res) {
   res.set({'Content-Type': 'audio/mpeg'});
-  var readStream = fs.createReadStream(getSongPath(req.params.id));
-  readStream.pipe(res);
+  streaming.streamFiles(res);
 });
 
 app.use('/', routes);
