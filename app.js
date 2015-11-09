@@ -34,7 +34,7 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-var songPath = path.join(__dirname, 'public/oceandrive.mp3');
+var songPath = path.join(__dirname, 'public/songs/2.mp3');
 
 app.get('/song', function (req, res) {
   res.set({'Content-Type': 'audio/mpeg'});
@@ -70,7 +70,7 @@ app.use(function (err, req, res, next) {
   });
 });
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 8080);
 
 var server = app.listen(app.get('port'), function () {
   console.log('Express server listening on port ' + server.address().port);
