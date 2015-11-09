@@ -34,11 +34,13 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-var songPath = path.join(__dirname, 'public/songs/2.mp3');
+function getSongPath(id) {
+  return path.join(__dirname, 'public/songs/'+ id +'.mp3');
+}
 
-app.get('/song', function (req, res) {
+app.get('/song/:id', function (req, res) {
   res.set({'Content-Type': 'audio/mpeg'});
-  var readStream = fs.createReadStream(songPath);
+  var readStream = fs.createReadStream(getSongPath(req.params.id));
   readStream.pipe(res);
 });
 
